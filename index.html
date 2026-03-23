@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="مجلس شباب ريمة - كيان شبابي تطوعي مستقل يهدف إلى توحيد جهود الشباب وتنمية قدراتهم للمساهمة في بناء محافظة ريمة واليمن.">
-</title> مجلس شباب ريمة </title>
+<title>مجلس شباب ريمة | الموقع ولوحة التحكم</title>
 
 <!-- خطوط جوجل -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -317,7 +317,6 @@
             
             <div class="border-t border-gray-800 pt-6 flex flex-col md:flex-row justify-between items-center text-sm font-medium">
                 <p>&copy; 2026 جميع الحقوق محفوظة لمجلس شباب ريمة (YCR).</p>
-                <p>&copy; 2026 م.ضياء الحرازي</p>
                 <button id="open-admin-login" class="mt-4 md:mt-0 text-gray-500 hover:text-white transition-colors flex items-center gap-2">
                     <i class="fas fa-lock text-xs"></i> الدخول للوحة التحكم والإدارة
                 </button>
@@ -763,5 +762,267 @@
     document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             document.querySelectorAll('.filter-btn').forEach(b => {
-                b.classList.remove('bg-
-ا
+                b.classList.remove('bg-ycr-red', 'text-white', 'border-transparent');
+                b.classList.add('bg-transparent', 'text-gray-300', 'border-gray-600');
+            });
+            e.target.classList.remove('bg-transparent', 'text-gray-300', 'border-gray-600');
+            e.target.classList.add('bg-ycr-red', 'text-white', 'border-transparent');
+            renderPublicProjects(e.target.getAttribute('data-filter'));
+        });
+    });
+
+    /* ---------------------------------------------------
+       5. لوحة التحكم السحابية وحفظ الإعدادات
+    --------------------------------------------------- */
+    document.getElementById('inp-site-logo').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if(file) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                siteSettings.logoDataUrl = event.target.result;
+                document.getElementById('admin-logo-preview').src = siteSettings.logoDataUrl;
+                document.getElementById('admin-logo-preview').classList.remove('hidden');
+                document.getElementById('admin-logo-placeholder').classList.add('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    function removeSiteLogo() {
+        siteSettings.logoDataUrl = "";
+        document.getElementById('admin-logo-preview').src = "logo.jpg";
+    }
+
+    function loadAdminSettings() {
+        if(siteSettings.logoDataUrl) {
+            document.getElementById('admin-logo-preview').src = siteSettings.logoDataUrl;
+            document.getElementById('admin-logo-preview').classList.remove('hidden');
+            document.getElementById('admin-logo-placeholder').classList.add('hidden');
+        }
+        document.getElementById('inp-site-name').value = siteSettings.name || "";
+        document.getElementById('inp-hero-title').value = siteSettings.heroTitle || "";
+        document.getElementById('inp-hero-desc').value = siteSettings.heroDesc || "";
+        document.getElementById('inp-about').value = siteSettings.about || "";
+        document.getElementById('inp-vision').value = siteSettings.vision || "";
+        document.getElementById('inp-mission').value = siteSettings.mission || "";
+        document.getElementById('inp-goals').value = (siteSettings.goals || []).join('\n');
+        document.getElementById('inp-membership').value = (siteSettings.membership || []).join('\n');
+        
+        document.getElementById('inp-phone').value = siteSettings.phone || "";
+        document.getElementById('inp-email').value = siteSettings.email || "";
+        document.getElementById('inp-whatsapp').value = siteSettings.whatsapp || "";
+        document.getElementById('inp-facebook').value = siteSettings.facebook || "";
+        document.getElementById('inp-twitter').value = siteSettings.twitter || "";
+    }
+
+    async function saveSettings() {
+        const btn = document.getElementById('btn-save-settings');
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin ml-2"></i> جاري الحفظ...';
+        btn.disabled = true;
+
+        siteSettings.name = document.getElementById('inp-site-name').value;
+        siteSettings.heroTitle = document.getElementById('inp-hero-title').value;
+        siteSettings.heroDesc = document.getElementById('inp-hero-desc').value;
+        siteSettings.about = document.getElementById('inp-about').value;
+        siteSettings.vision = document.getElementById('inp-vision').value;
+        siteSettings.mission = document.getElementById('inp-mission').value;
+        siteSettings.goals = document.getElementById('inp-goals').value.split('\n').filter(item => item.trim() !== '');
+        siteSettings.membership = document.getElementById('inp-membership').value.split('\n').filter(item => item.trim() !== '');
+        
+        siteSettings.phone = document.getElementById('inp-phone').value;
+        siteSettings.email = document.getElementById('inp-email').value;
+        siteSettings.whatsapp = document.getElementById('inp-whatsapp').value;
+        siteSettings.facebook = document.getElementById('inp-facebook').value;
+        siteSettings.twitter = document.getElementById('inp-twitter').value;
+        
+        try {
+            await db.collection("settings").doc("general").set(siteSettings);
+            renderPublicSettings();
+            showActionToast('تم الحفظ في السحابة بنجاح');
+        } catch(e) {
+            alert("حدث خطأ أثناء الحفظ. تأكد من الإنترنت.");
+        }
+        
+        btn.innerHTML = '<i class="fas fa-cloud-upload-alt ml-2"></i> حفظ التعديلات في السحابة';
+        btn.disabled = false;
+    }
+
+    function renderAdminProjectsTable() {
+        const tbody = document.getElementById('admin-projects-tbody');
+        tbody.innerHTML = '';
+        projects.forEach(proj => {
+            tbody.innerHTML += `
+                <tr class="hover:bg-gray-50 transition-colors border-b border-gray-100">
+                    <td class="p-3"><img src="${proj.img || 'https://via.placeholder.com/150'}" class="w-16 h-12 object-cover rounded-lg shadow-sm border border-gray-200"></td>
+                    <td class="p-3 font-bold text-gray-800">${proj.title}</td>
+                    <td class="p-3 text-sm text-gray-600"><span class="bg-gray-100 px-3 py-1 rounded-full font-bold border border-gray-200">${proj.category}</span></td>
+                    <td class="p-3 text-sm text-gray-500" dir="ltr">${proj.date}</td>
+                    <td class="p-3 text-center">
+                        <div class="flex items-center justify-center gap-2">
+                            <button onclick="editProject('${proj.id}')" class="text-blue-600 bg-blue-50 hover:bg-blue-100 w-8 h-8 rounded-lg transition-colors"><i class="fas fa-edit"></i></button>
+                            <button onclick="deleteProject('${proj.id}')" class="text-red-600 bg-red-50 hover:bg-red-100 w-8 h-8 rounded-lg transition-colors"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>`;
+        });
+    }
+
+    document.getElementById('proj-img-file').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if(file) {
+            if(file.size > 1048576) {
+                alert("⚠️ تنبيه: الصورة كبيرة! قد يؤدي ذلك لبطء الرفع. يفضل أن تكون أقل من 1 ميجا.");
+            }
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                document.getElementById('proj-img-base64').value = event.target.result;
+                document.getElementById('proj-img-preview').src = event.target.result;
+                document.getElementById('img-preview-container').classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    function removeProjImg() {
+        document.getElementById('proj-img-file').value = '';
+        document.getElementById('proj-img-base64').value = '';
+        document.getElementById('proj-img-preview').src = '';
+        document.getElementById('img-preview-container').classList.add('hidden');
+    }
+
+    function openProjectModal(isEdit = false) {
+        document.getElementById('project-modal').classList.remove('hidden');
+        document.getElementById('project-modal').classList.add('flex');
+        if(!isEdit) {
+            document.getElementById('modal-title').innerText = "إضافة مشروع جديد للسحابة";
+            document.getElementById('proj-id').value = '';
+            document.getElementById('proj-title').value = '';
+            document.getElementById('proj-desc').value = '';
+            document.getElementById('proj-date').value = new Date().toISOString().split('T')[0];
+            removeProjImg();
+        }
+    }
+
+    function closeProjectModal() {
+        document.getElementById('project-modal').classList.add('hidden');
+        document.getElementById('project-modal').classList.remove('flex');
+    }
+
+    async function saveProject() {
+        const idVal = document.getElementById('proj-id').value;
+        const title = document.getElementById('proj-title').value;
+        const cat = document.getElementById('proj-category').value;
+        const date = document.getElementById('proj-date').value;
+        const desc = document.getElementById('proj-desc').value;
+        const img = document.getElementById('proj-img-base64').value; 
+        
+        if(!title) { alert("يرجى كتابة عنوان المشروع"); return; }
+
+        const btn = document.getElementById('btn-save-proj');
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري النشر...';
+        btn.disabled = true;
+
+        try {
+            if(idVal) {
+                await db.collection("projects").doc(idVal).update({
+                    title: title, category: cat, date: date, desc: desc, img: img
+                });
+                showActionToast('تم تعديل المشروع بنجاح');
+            } else {
+                await db.collection("projects").add({
+                    title: title, category: cat, date: date, desc: desc, img: img,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                showActionToast('تم نشر المشروع للزوار بنجاح');
+            }
+            closeProjectModal();
+            await loadDataFromFirebase(); 
+        } catch (error) {
+            alert("حدث خطأ أثناء الحفظ. قد تكون الصورة كبيرة جداً.");
+        }
+        btn.innerHTML = 'حفظ ونشر';
+        btn.disabled = false;
+    }
+
+    function editProject(id) {
+        const p = projects.find(x => x.id === id);
+        if(p) {
+            document.getElementById('modal-title').innerText = "تعديل بيانات المشروع";
+            document.getElementById('proj-id').value = p.id;
+            document.getElementById('proj-title').value = p.title;
+            document.getElementById('proj-category').value = p.category;
+            document.getElementById('proj-date').value = p.date;
+            document.getElementById('proj-desc').value = p.desc;
+            document.getElementById('proj-img-file').value = '';
+            if(p.img) {
+                document.getElementById('proj-img-base64').value = p.img;
+                document.getElementById('proj-img-preview').src = p.img;
+                document.getElementById('img-preview-container').classList.remove('hidden');
+            } else { removeProjImg(); }
+            openProjectModal(true);
+        }
+    }
+
+    async function deleteProject(id) {
+        if(confirm('هل أنت متأكد من حذف هذا المشروع نهائياً؟')) {
+            try {
+                await db.collection("projects").doc(id).delete();
+                showActionToast('تم الحذف نهائياً');
+                await loadDataFromFirebase(); 
+            } catch(e) { alert("حدث خطأ أثناء الحذف."); }
+        }
+    }
+
+    /* ---------------------------------------------------
+       6. دوال التفاعل والملاحة
+    --------------------------------------------------- */
+    document.querySelectorAll('.admin-sidebar-item').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            document.querySelectorAll('.admin-sidebar-item').forEach(b => b.classList.remove('active', 'bg-red-100', 'text-ycr-red'));
+            e.currentTarget.classList.add('active', 'bg-red-100', 'text-ycr-red');
+            const target = e.currentTarget.getAttribute('data-target');
+            document.querySelectorAll('.admin-section').forEach(sec => sec.classList.add('hidden'));
+            document.getElementById(target).classList.remove('hidden');
+        });
+    });
+
+    function showActionToast(msg) {
+        const toast = document.getElementById('action-toast');
+        document.getElementById('toast-text').innerText = msg;
+        toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-10');
+        setTimeout(() => toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-10'), 3500);
+    }
+
+    document.getElementById('mobile-menu-btn').addEventListener('click', () => { document.getElementById('mobile-menu').classList.toggle('hidden'); });
+    document.querySelectorAll('#mobile-menu a').forEach(link => link.addEventListener('click', () => document.getElementById('mobile-menu').classList.add('hidden')));
+
+    const loginModal = document.getElementById('login-modal');
+    const pubView = document.getElementById('public-view');
+    const adminView = document.getElementById('admin-view');
+
+    document.getElementById('open-admin-login').addEventListener('click', () => {
+        loginModal.classList.remove('hidden'); loginModal.classList.add('flex');
+        document.getElementById('admin-password').value = ''; document.getElementById('login-error').classList.add('hidden');
+    });
+    document.getElementById('login-cancel').addEventListener('click', () => {
+        loginModal.classList.add('hidden'); loginModal.classList.remove('flex');
+    });
+
+    document.getElementById('login-submit').addEventListener('click', () => {
+        const pass = document.getElementById('admin-password').value;
+        if(pass === 'admin') { 
+            loginModal.classList.add('hidden'); loginModal.classList.remove('flex');
+            pubView.classList.add('hidden'); adminView.classList.remove('hidden'); adminView.classList.add('flex');
+            loadAdminSettings(); renderAdminProjectsTable(); window.scrollTo(0,0);
+        } else { document.getElementById('login-error').classList.remove('hidden'); }
+    });
+
+    document.getElementById('logout-btn').addEventListener('click', () => {
+        adminView.classList.add('hidden'); adminView.classList.remove('flex');
+        pubView.classList.remove('hidden'); window.scrollTo(0,0);
+    });
+</script>
+
+
+</body>
+</html>
