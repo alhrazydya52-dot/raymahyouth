@@ -4,7 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>مجلس شباب ريمة | الموقع ولوحة التحكم</title>
+<meta name="description" content="مجلس شباب ريمة - كيان شبابي تطوعي مستقل يهدف إلى توحيد جهود الشباب وتنمية قدراتهم للمساهمة في بناء محافظة ريمة واليمن.">
+</title> مجلس شباب ريمة </title>
 
 <!-- خطوط جوجل -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,6 +17,10 @@
 
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
+
+<!-- مكتبات Firebase الأساسية -->
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
 
 <script>
     tailwind.config = {
@@ -89,6 +94,17 @@
         object-fit: cover;
         border-radius: 0.5rem;
     }
+    /* إشعار منبثق */
+    #toast-message {
+        transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        opacity: 0;
+        transform: translateY(20px);
+        pointer-events: none;
+    }
+    #toast-message.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
 </style>
 
 
@@ -124,7 +140,7 @@
                     <a href="#goals" class="text-ycr-black hover:text-ycr-red font-bold transition-colors">الأهداف</a>
                     <a href="#membership" class="text-ycr-black hover:text-ycr-red font-bold transition-colors">شروط العضوية</a>
                     <a href="#projects" class="text-ycr-black hover:text-ycr-red font-bold transition-colors">المشاريع والأنشطة</a>
-                    <a href="#membership" class="bg-ycr-red hover:bg-ycr-darkred text-white px-5 py-2 rounded-full font-bold transition-colors shadow-md">انضم إلينا</a>
+                    <a href="#contact" class="bg-ycr-red hover:bg-ycr-darkred text-white px-5 py-2 rounded-full font-bold transition-colors shadow-md">تواصل معنا</a>
                 </div>
 
                 <!-- زر قائمة الجوال -->
@@ -151,7 +167,7 @@
     <!-- القسم الرئيسي Hero -->
     <section id="home" class="hero-bg relative min-h-screen flex items-center justify-center pt-24 pb-12">
         <div class="max-w-5xl mx-auto px-4 text-center relative z-10 mt-10">
-            <div class="inline-block mb-6 md:mb-8">
+            <div class="inline-block mb-6 md:mb-8 animate-bounce">
                 <span class="bg-ycr-red text-white px-5 py-2 rounded-full text-sm font-bold tracking-wider shadow-[0_0_15px_rgba(220,38,38,0.5)] border border-red-400">
                     <i class="fas fa-star ml-2 text-yellow-300"></i> تحت شعار
                 </span>
@@ -165,10 +181,10 @@
                 كيان شبابي فاعل، يجمع الطاقات ويوحد الكلمة، لنكون قادة التغيير الإيجابي في محافظة ريمة واليمن عموماً.
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#membership" class="bg-white text-ycr-black hover:bg-gray-100 px-6 py-3 md:px-8 md:py-4 rounded-xl font-bold text-base md:text-lg transition-all shadow-xl flex items-center justify-center gap-3">
+                <a href="#membership" class="bg-white text-ycr-black hover:bg-gray-100 px-6 py-3 md:px-8 md:py-4 rounded-xl font-bold text-base md:text-lg transition-all shadow-xl flex items-center justify-center gap-3 transform hover:-translate-y-1">
                     <i class="fas fa-user-plus text-ycr-red"></i> انضم إلى المجلس
                 </a>
-                <a href="#projects" class="border-2 border-ycr-red bg-ycr-black bg-opacity-40 hover:bg-ycr-red text-white px-6 py-3 md:px-8 md:py-4 rounded-xl font-bold text-base md:text-lg transition-all flex items-center justify-center gap-3 backdrop-blur-sm">
+                <a href="#projects" class="border-2 border-ycr-red bg-ycr-black bg-opacity-40 hover:bg-ycr-red text-white px-6 py-3 md:px-8 md:py-4 rounded-xl font-bold text-base md:text-lg transition-all flex items-center justify-center gap-3 backdrop-blur-sm transform hover:-translate-y-1">
                     <i class="fas fa-project-diagram"></i> استكشف برامجنا
                 </a>
             </div>
@@ -183,17 +199,17 @@
                 <h2 class="text-3xl md:text-5xl font-black text-ycr-black font-heading section-title relative inline-block mb-4">أدبيات المجلس</h2>
             </div>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div class="bg-gray-50 rounded-2xl p-8 border border-gray-100 card-hover relative overflow-hidden">
+                <div class="bg-gray-50 rounded-2xl p-8 border border-gray-100 card-hover relative overflow-hidden group">
                     <div class="absolute top-0 right-0 w-1.5 h-full bg-ycr-red"></div>
                     <h3 class="text-2xl font-bold font-heading text-ycr-black mb-4"><i class="fas fa-book-open text-ycr-red ml-2"></i> التعريف بالمجلس</h3>
                     <p id="pub-about-text" class="text-gray-700 leading-loose font-medium">هيئة شبابية، تأسس بهدف تمكين الشباب وتعزيز دورهم في تنمية المجتمع وخدمته، وتوفير منصة للتعبير عن آرائهم وأفكارهم وتطلعاتهم.</p>
                 </div>
-                <div class="bg-gray-50 rounded-2xl p-8 border border-gray-100 card-hover relative overflow-hidden">
+                <div class="bg-gray-50 rounded-2xl p-8 border border-gray-100 card-hover relative overflow-hidden group">
                     <div class="absolute top-0 right-0 w-1.5 h-full bg-ycr-black"></div>
                     <h3 class="text-2xl font-bold font-heading text-ycr-black mb-4"><i class="fas fa-eye text-ycr-black ml-2"></i> رؤيتنا</h3>
                     <p id="pub-vision-text" class="text-gray-700 leading-loose font-medium">شباب ريادي تنموي فاعل ومؤثر في تنمية المجتمع.</p>
                 </div>
-                <div class="bg-gray-50 rounded-2xl p-8 border border-gray-100 card-hover relative overflow-hidden lg:col-span-2">
+                <div class="bg-gray-50 rounded-2xl p-8 border border-gray-100 card-hover relative overflow-hidden lg:col-span-2 group">
                     <div class="absolute top-0 right-0 w-1.5 h-full bg-ycr-red"></div>
                     <h3 class="text-2xl font-bold font-heading text-ycr-black mb-4"><i class="fas fa-paper-plane text-ycr-red ml-2"></i> رسالتنا</h3>
                     <p id="pub-mission-text" class="text-gray-700 text-xl leading-loose font-medium">دعم وتمكين شباب ريمة ليكونوا قادة التغيير الإيجابي في مجتمعاتهم، من خلال توفير الفرص والموارد اللازمة لتحقيق أحلامهم وطموحاتهم.</p>
@@ -212,9 +228,8 @@
                 </div>
                 <p class="text-ycr-red font-bold text-lg mt-4 md:mt-0">يسعى المجلس لتحقيق الأهداف العامة التالية:</p>
             </div>
-            
             <div id="pub-goals-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- سيتم إضافة الأهداف هنا عبر الجافاسكربت -->
+                <!-- الأهداف مبرمجة وثابتة فوراً لضمان الظهور -->
             </div>
         </div>
     </section>
@@ -233,12 +248,12 @@
 
             <div class="max-w-4xl mx-auto bg-white rounded-3xl shadow-2xl border-t-[6px] border-ycr-red p-8 md:p-14">
                 <ul id="pub-membership-container" class="space-y-4">
-                    <!-- سيتم إضافة الشروط هنا عبر الجافاسكربت -->
+                    <!-- الشروط مبرمجة وثابتة لضمان الظهور -->
                 </ul>
                 
                 <div class="mt-12 text-center border-t border-gray-200 pt-8">
                     <p class="text-gray-500 mb-4 text-sm font-bold">هل تنطبق عليك الشروط وتود الانضمام إلينا؟</p>
-                    <a href="mailto:info@raymahyouth.org" class="inline-block bg-ycr-black hover:bg-gray-800 text-white px-10 py-4 rounded-xl font-bold text-lg transition-all shadow-lg transform hover:-translate-y-1">
+                    <a id="btn-join-email" href="mailto:ycr440@gmail.com" class="inline-block bg-ycr-black hover:bg-gray-800 text-white px-10 py-4 rounded-xl font-bold text-lg transition-all shadow-lg transform hover:-translate-y-1">
                         تواصل معنا لطلب الانتساب
                     </a>
                 </div>
@@ -253,7 +268,6 @@
                 <span class="text-ycr-red font-bold text-sm tracking-widest mb-2 block uppercase">أعمالنا ومبادراتنا</span>
                 <h2 class="text-3xl md:text-4xl font-black text-white font-heading section-title relative inline-block mb-8">المشاريع والأنشطة</h2>
                 
-                <!-- أزرار تصفية الأقسام -->
                 <div class="flex flex-wrap justify-center gap-2 md:gap-4 mt-8" id="portfolio-filters">
                     <button class="filter-btn active bg-ycr-red text-white px-5 py-2 rounded-full font-bold text-sm transition-colors border border-transparent" data-filter="all">الكل</button>
                     <button class="filter-btn bg-transparent text-gray-300 hover:text-white border border-gray-600 hover:border-gray-400 px-5 py-2 rounded-full font-bold text-sm transition-colors" data-filter="التعليم">التعليم</button>
@@ -263,10 +277,7 @@
                 </div>
             </div>
 
-            <!-- حاوية البطاقات -->
-            <div id="public-projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- سيتم إضافة المشاريع هنا بواسطة الجافاسكربت -->
-            </div>
+            <div id="public-projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
             
             <div id="no-projects-msg" class="hidden text-center py-10">
                 <div class="text-gray-600 text-6xl mb-4"><i class="fas fa-folder-open"></i></div>
@@ -275,23 +286,38 @@
         </div>
     </section>
 
-    <!-- الفوتر مع زر الإدارة المخفي -->
-    <footer class="bg-ycr-black text-gray-300 pt-16 pb-8 border-t border-gray-800">
+    <!-- الفوتر مع بيانات التواصل الديناميكية -->
+    <footer id="contact" class="bg-ycr-black text-gray-300 pt-16 pb-8 border-t border-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10 text-center md:text-right">
                 <div>
                     <h4 class="text-white text-2xl font-black font-heading mb-4">مجلس شباب ريمة</h4>
                     <p class="text-gray-400 font-medium max-w-md mx-auto md:mx-0">هيئة شبابية مستقلة تعمل على توحيد جهود الشباب، وتنمية قدراتهم، وإشراكهم بفاعلية في بناء وتنمية المجتمع وحماية الثوابت الوطنية.</p>
+                    
+                    <!-- أيقونات التواصل الاجتماعي المبرمجة -->
+                    <div class="flex space-x-4 space-x-reverse mt-6 justify-center md:justify-start">
+                        <a id="pub-link-fb" href="#" target="_blank" class="hidden w-12 h-12 rounded-full bg-gray-800 items-center justify-center hover:bg-ycr-red hover:text-white transition-colors text-lg"><i class="fab fa-facebook-f"></i></a>
+                        <a id="pub-link-tw" href="#" target="_blank" class="hidden w-12 h-12 rounded-full bg-gray-800 items-center justify-center hover:bg-ycr-red hover:text-white transition-colors text-lg"><i class="fab fa-twitter"></i></a>
+                        <a id="pub-link-wa" href="https://wa.me/967773156266" target="_blank" class="flex w-12 h-12 rounded-full bg-gray-800 items-center justify-center hover:bg-ycr-red hover:text-white transition-colors text-lg"><i class="fab fa-whatsapp"></i></a>
+                    </div>
                 </div>
+                
                 <div class="flex flex-col justify-center items-center md:items-end">
-                    <h4 class="text-white text-xl font-bold mb-4 font-heading"> 773156266 تواصل معنا</h4>
-                    <p dir="ltr" class="font-bold text-ycr-red text-lg">ycr440@gmail.com</p>
+                    <h4 class="text-white text-xl font-bold mb-4 font-heading">تواصل معنا</h4>
+                    <!-- الاتصال السريع -->
+                    <a id="pub-link-phone" href="tel:773156266" dir="ltr" class="font-bold text-gray-300 hover:text-ycr-red text-xl mb-2 transition-colors flex items-center gap-3">
+                        <span id="pub-text-phone">773156266</span> <i class="fas fa-phone bg-gray-800 p-3 rounded-full"></i>
+                    </a>
+                    <!-- المراسلة عبر الإيميل -->
+                    <a id="pub-link-email" href="mailto:ycr440@gmail.com" dir="ltr" class="font-bold text-ycr-red hover:text-white text-lg transition-colors flex items-center gap-3">
+                        <span id="pub-text-email">ycr440@gmail.com</span> <i class="fas fa-envelope bg-gray-800 p-3 rounded-full"></i>
+                    </a>
                 </div>
             </div>
             
             <div class="border-t border-gray-800 pt-6 flex flex-col md:flex-row justify-between items-center text-sm font-medium">
                 <p>&copy; 2026 جميع الحقوق محفوظة لمجلس شباب ريمة (YCR).</p>
-                <!-- زر الدخول للوحة التحكم -->
+                <p>&copy; 2026 م.ضياء الحرازي</p>
                 <button id="open-admin-login" class="mt-4 md:mt-0 text-gray-500 hover:text-white transition-colors flex items-center gap-2">
                     <i class="fas fa-lock text-xs"></i> الدخول للوحة التحكم والإدارة
                 </button>
@@ -308,10 +334,9 @@
         <div class="text-center mb-6">
             <div class="w-16 h-16 bg-red-50 text-ycr-red rounded-full flex items-center justify-center text-2xl mx-auto mb-4"><i class="fas fa-user-shield"></i></div>
             <h3 class="text-2xl font-bold text-gray-900 font-heading">لوحة التحكم</h3>
-            <p class="text-gray-500 text-sm mt-1">أدخل كلمة المرور للوصول ()</p>
         </div>
         <div class="space-y-4">
-            <input type="password" id="admin-password" placeholder="••••••••" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-ycr-red focus:border-ycr-red outline-none text-left" dir="ltr">
+            <input type="password" id="admin-password" placeholder="كلمة المرور: admin" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-ycr-red outline-none text-left" dir="ltr">
             <p id="login-error" class="text-red-500 text-xs hidden font-bold">كلمة المرور غير صحيحة!</p>
             <button id="login-submit" class="w-full bg-ycr-black hover:bg-gray-800 text-white font-bold py-3 rounded-xl transition-colors">تسجيل الدخول</button>
             <button id="login-cancel" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-2 rounded-xl transition-colors">إلغاء والعودة للموقع</button>
@@ -326,8 +351,8 @@
     <!-- هيدر الإدارة -->
     <header class="bg-ycr-black text-white h-16 flex items-center justify-between px-6 shadow-md z-10 sticky top-0">
         <div class="flex items-center gap-3">
-            <i class="fas fa-cogs text-ycr-red text-xl"></i>
-            <h1 class="font-bold font-heading text-lg md:text-xl">إدارة موقع مجلس شباب ريمة</h1>
+            <i class="fas fa-cloud text-ycr-red text-xl"></i>
+            <h1 class="font-bold font-heading text-lg md:text-xl">إدارة الموقع السحابية</h1>
         </div>
         <button id="logout-btn" class="bg-ycr-red hover:bg-red-700 text-white px-4 py-1.5 rounded-md text-sm font-bold flex items-center gap-2 transition-colors">
             <i class="fas fa-globe"></i> العودة للموقع
@@ -354,7 +379,7 @@
         <!-- منطقة المحتوى -->
         <main class="flex-1 p-4 md:p-8 overflow-y-auto">
             
-            <!-- قسم 1: الإعدادات العامة والأدبيات -->
+            <!-- قسم 1: الإعدادات العامة والأدبيات والتواصل -->
             <div id="admin-settings" class="admin-section block max-w-4xl mx-auto bg-white rounded-2xl shadow-sm border border-gray-200 p-6 md:p-8">
                 <h2 class="text-2xl font-black text-ycr-black font-heading mb-6 border-b pb-4"><i class="fas fa-cog text-gray-400 ml-2"></i> إعدادات الموقع الأساسية</h2>
                 <form id="settings-form" class="space-y-8">
@@ -368,9 +393,35 @@
                                 <span id="admin-logo-placeholder" class="text-xs text-gray-400 hidden">بدون شعار</span>
                             </div>
                             <div class="flex-1 w-full">
-                                <label class="block text-sm font-bold text-gray-700 mb-2">اختر صورة الشعار من جهازك لتغيير الشعار في الموقع كله:</label>
                                 <input type="file" id="inp-site-logo" accept="image/*" class="text-sm text-gray-500 file:mr-0 file:ml-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-bold file:bg-red-50 file:text-ycr-red hover:file:bg-red-100 w-full cursor-pointer">
                                 <button type="button" onclick="removeSiteLogo()" class="text-red-500 text-xs font-bold mt-3"><i class="fas fa-trash"></i> إزالة الشعار</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- إعدادات التواصل الاجتماعي -->
+                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
+                        <h3 class="text-lg font-bold text-ycr-black font-heading mb-4"><i class="fas fa-link text-gray-400 ml-2"></i> بيانات الاتصال ومواقع التواصل</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2"><i class="fas fa-phone text-gray-500 ml-1"></i> رقم الهاتف المحمول</label>
+                                <input type="text" id="inp-phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ycr-red outline-none" dir="ltr">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2"><i class="fas fa-envelope text-gray-500 ml-1"></i> البريد الإلكتروني</label>
+                                <input type="email" id="inp-email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ycr-red outline-none" dir="ltr">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2"><i class="fab fa-whatsapp text-green-500 ml-1"></i> رقم الواتساب (مع رمز الدولة)</label>
+                                <input type="text" id="inp-whatsapp" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ycr-red outline-none" dir="ltr" placeholder="967773156266">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2"><i class="fab fa-facebook text-blue-600 ml-1"></i> رابط صفحة فيسبوك</label>
+                                <input type="url" id="inp-facebook" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ycr-red outline-none" dir="ltr" placeholder="https://facebook.com/...">
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-sm font-bold text-gray-700 mb-2"><i class="fab fa-twitter text-blue-400 ml-1"></i> رابط تويتر (X)</label>
+                                <input type="url" id="inp-twitter" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ycr-red outline-none" dir="ltr" placeholder="https://twitter.com/...">
                             </div>
                         </div>
                     </div>
@@ -401,23 +452,18 @@
                             <label class="block text-sm font-bold text-gray-700 mb-2">الرسالة</label>
                             <textarea id="inp-mission" rows="2" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ycr-red outline-none"></textarea>
                         </div>
-                        
-                        <!-- الأهداف (كل سطر هدف) -->
                         <div class="md:col-span-2 pt-4 border-t border-gray-100">
-                            <label class="block text-sm font-bold text-gray-700 mb-2">الأهداف (اكتب كل هدف في سطر جديد ليتم ترقيمه تلقائياً)</label>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">الأهداف (اكتب كل هدف في سطر جديد)</label>
                             <textarea id="inp-goals" rows="6" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ycr-red outline-none leading-relaxed"></textarea>
-                            <p class="text-xs text-gray-500 mt-1">لا تقم بكتابة الأرقام، النظام سيرقمها تلقائياً.</p>
                         </div>
-
-                        <!-- شروط العضوية (كل سطر شرط) -->
                         <div class="md:col-span-2 pt-4 border-t border-gray-100">
                             <label class="block text-sm font-bold text-gray-700 mb-2">شروط العضوية (اكتب كل شرط في سطر جديد)</label>
                             <textarea id="inp-membership" rows="6" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ycr-red outline-none leading-relaxed"></textarea>
                         </div>
                     </div>
 
-                    <button type="button" onclick="saveSettings()" class="w-full bg-ycr-black hover:bg-gray-800 text-white font-bold py-4 rounded-xl transition-colors shadow-lg text-lg">
-                        <i class="fas fa-save ml-2"></i> حفظ التعديلات وتحديث الموقع
+                    <button type="button" onclick="saveSettings()" id="btn-save-settings" class="w-full bg-ycr-black hover:bg-gray-800 text-white font-bold py-4 rounded-xl transition-colors shadow-lg text-lg flex items-center justify-center">
+                        <i class="fas fa-cloud-upload-alt ml-2"></i> حفظ التعديلات في السحابة
                     </button>
                 </form>
             </div>
@@ -427,14 +473,13 @@
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 md:p-8 mb-6 flex flex-col md:flex-row justify-between items-center gap-4">
                     <div>
                         <h2 class="text-2xl font-black text-ycr-black font-heading"><i class="fas fa-folder-open text-gray-400 ml-2"></i> المشاريع والأنشطة</h2>
-                        <p class="text-gray-500 text-sm mt-1">أضف الأخبار، التعليم، الصحة، والإغاثة هنا لتظهر في الموقع فوراً.</p>
+                        <p class="text-gray-500 text-sm mt-1">أضف الأخبار والمشاريع هنا لتظهر في الموقع فوراً لجميع الزوار.</p>
                     </div>
                     <button onclick="openProjectModal()" class="bg-ycr-red hover:bg-ycr-darkred text-white font-bold py-3 px-6 rounded-lg transition-colors shadow-md flex items-center gap-2">
                         <i class="fas fa-plus"></i> إضافة مشروع جديد
                     </button>
                 </div>
 
-                <!-- جدول إدارة المشاريع -->
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
                     <div class="overflow-x-auto">
                         <table class="w-full text-right border-collapse">
@@ -448,13 +493,11 @@
                                 </tr>
                             </thead>
                             <tbody id="admin-projects-tbody" class="divide-y divide-gray-100">
-                                <!-- سيتم إضافة الصفوف هنا بالبرمجة -->
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-
         </main>
     </div>
 </div>
@@ -463,75 +506,86 @@
 <div id="project-modal" class="fixed inset-0 bg-black/60 z-[200] hidden items-center justify-center backdrop-blur-sm p-4 overflow-y-auto">
     <div class="bg-white rounded-2xl w-full max-w-2xl shadow-2xl my-8">
         <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50 rounded-t-2xl">
-            <h3 id="modal-title" class="text-xl font-black font-heading text-ycr-black">إضافة مشروع جديد</h3>
+            <h3 id="modal-title" class="text-xl font-black font-heading text-ycr-black">إضافة مشروع جديد للسحابة</h3>
             <button onclick="closeProjectModal()" class="text-gray-400 hover:text-red-500 text-2xl"><i class="fas fa-times"></i></button>
         </div>
         <div class="p-6 space-y-5">
             <input type="hidden" id="proj-id">
-            
             <div>
-                <label class="block text-sm font-bold text-gray-700 mb-2">عنوان المشروع / النشاط <span class="text-red-500">*</span></label>
+                <label class="block text-sm font-bold text-gray-700 mb-2">عنوان المشروع <span class="text-red-500">*</span></label>
                 <input type="text" id="proj-title" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ycr-red outline-none">
             </div>
-            
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">القسم التابع له <span class="text-red-500">*</span></label>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">القسم <span class="text-red-500">*</span></label>
                     <select id="proj-category" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ycr-red outline-none bg-white">
                         <option value="التعليم">التعليم والتدريب</option>
                         <option value="الصحة">الصحة والبيئة</option>
                         <option value="الإغاثة">الإغاثة الإنسانية</option>
-                        <option value="التمكين">التمكين الاقتصادي والمشاريع</option>
+                        <option value="التمكين">التمكين والمشاريع</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">تاريخ التنفيذ</label>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">التاريخ</label>
                     <input type="date" id="proj-date" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ycr-red outline-none">
                 </div>
             </div>
-
             <div>
-                <label class="block text-sm font-bold text-gray-700 mb-2">صورة المشروع من جهازك</label>
-                <div class="flex items-center gap-4">
-                    <input type="file" id="proj-img-file" accept="image/*" class="text-sm text-gray-500 file:mr-0 file:ml-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-bold file:bg-red-50 file:text-ycr-red hover:file:bg-red-100 w-full cursor-pointer">
-                </div>
+                <label class="block text-sm font-bold text-gray-700 mb-2">صورة المشروع</label>
+                <input type="file" id="proj-img-file" accept="image/*" class="text-sm text-gray-500 file:mr-0 file:ml-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-bold file:bg-red-50 file:text-ycr-red hover:file:bg-red-100 w-full cursor-pointer">
                 <input type="hidden" id="proj-img-base64"> 
                 <div id="img-preview-container" class="mt-3 hidden">
                     <img id="proj-img-preview" src="" class="project-img-preview border border-gray-200">
                     <button onclick="removeProjImg()" class="text-red-500 text-xs font-bold mt-2"><i class="fas fa-trash"></i> إزالة الصورة</button>
                 </div>
             </div>
-
             <div>
                 <label class="block text-sm font-bold text-gray-700 mb-2">التفاصيل والوصف</label>
-                <textarea id="proj-desc" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ycr-red outline-none" placeholder="اكتب تفاصيل المبادرة أو المشروع هنا..."></textarea>
+                <textarea id="proj-desc" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ycr-red outline-none"></textarea>
             </div>
         </div>
         <div class="p-6 border-t border-gray-100 bg-gray-50 rounded-b-2xl flex justify-end gap-3">
             <button onclick="closeProjectModal()" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2.5 px-6 rounded-lg transition-colors">إلغاء</button>
-            <button onclick="saveProject()" class="bg-ycr-red hover:bg-ycr-darkred text-white font-bold py-2.5 px-8 rounded-lg transition-colors shadow-md">حفظ المشروع والنشر</button>
+            <button onclick="saveProject()" id="btn-save-proj" class="bg-ycr-red hover:bg-ycr-darkred text-white font-bold py-2.5 px-8 rounded-lg transition-colors shadow-md flex items-center justify-center">حفظ ونشر</button>
         </div>
     </div>
 </div>
 
-<!-- إشعار نجاح الإجراءات -->
-<div id="action-toast" class="fixed bottom-5 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-full shadow-2xl z-[300] flex items-center gap-3 font-bold transition-all duration-300 opacity-0 pointer-events-none translate-y-10 border border-green-500">
-    <i class="fas fa-check-circle text-white text-xl"></i>
+<!-- إشعار التنبيهات (Toast) -->
+<div id="toast-message" class="fixed bottom-5 left-1/2 transform -translate-x-1/2 bg-ycr-black text-white px-6 py-3 rounded-full shadow-2xl z-[300] flex items-center gap-3 font-bold transition-all duration-300 opacity-0 pointer-events-none translate-y-10 border-2 border-ycr-red">
+    <i class="fas fa-info-circle text-ycr-red text-xl"></i>
     <span id="toast-text">تمت العملية بنجاح</span>
 </div>
 
 <!-- ========================================== -->
-<!-- برمجة النظام (JavaScript)                  -->
+<!-- برمجة النظام الأساسية (Firebase Integration) -->
 <!-- ========================================== -->
 <script>
-    /* ---------------------------------------------------
-       1. إدارة الحالة وقاعدة البيانات (في الذاكرة - In-Memory)
-    --------------------------------------------------- */
-    
+    // 1. إعدادات قاعدة بيانات Firebase
+    const firebaseConfig = {
+        apiKey: "AIzaSyAoxD0idpOtL9FQNPKIxaPsHc-dDZlC5VU",
+        authDomain: "raymahyouth.firebaseapp.com",
+        projectId: "raymahyouth",
+        storageBucket: "raymahyouth.firebasestorage.app",
+        messagingSenderId: "447842083468",
+        appId: "1:447842083468:web:dfa00164f82ce41e6191a9",
+        measurementId: "G-M8117JL0DM"
+    };
+
+    // تهيئة السحابة
+    let db;
+    try {
+        firebase.initializeApp(firebaseConfig);
+        db = firebase.firestore();
+    } catch (e) {
+        console.error("Firebase init error: ", e);
+    }
+
+    // 2. النصوص الأساسية الثابتة المدمجة (تظهر فوراً للزوار)
     let siteSettings = {
-        name: "مجلس شباب ريمة",
-        logoDataUrl: "", // لتخزين صورة الشعار المحولة لنص
-        heroTitle: "صوت الشباب .. طاقة المستقبل",
+        name: "مجلس شباب ريمة", 
+        logoDataUrl: "", 
+        heroTitle: "معاً نحو مستقبل يصنعه الشباب",
         heroDesc: "كيان شبابي تطوعي مستقل، يهدف إلى توحيد جهود الشباب، وتنمية قدراتهم، وإشراكهم بفاعلية في بناء وتنمية محافظة ريمة واليمن عموماً.",
         about: "هيئة شبابية، تأسس بهدف تمكين الشباب وتعزيز دورهم في تنمية المجتمع وخدمته، وتوفير منصة للتعبير عن آرائهم وأفكارهم وتطلعاتهم.",
         vision: "شباب ريادي تنموي فاعل ومؤثر في تنمية المجتمع.",
@@ -544,7 +598,7 @@
             "إعداد وتأهيل الشباب علمياً وثقافياً واجتماعياً لتمكينهم من الإسهام الفاعل في تحقيق النهضة الوطنية الشاملة.",
             "التشبيك مع المنظمات المحلية والإقليمية والدولية ذات الاهتمام المشترك.",
             "تعزيز دور المرأة في المجتمع وتمكينها من المشاركة الفاعلة في مختلف المجالات، مع احترام القيم والثوابت الثقافية الاجتماعية."
-        ],
+        ], 
         membership: [
             "أن يتقدم بطلب رسمي للانتساب كتابياً.",
             "أن يكون كامل الأهلية القانونية متمتعاً بحقوقه المدنية كاملة.",
@@ -554,37 +608,55 @@
             "عدم ممارسة النشاط الحزبي داخل المجلس أو باسمه.",
             "أن يكون قادراً على الإسهام في المجال التنموي.",
             "موافقة الجمعية العمومية على طلب انضمامه للمجلس، في جلسة اعتيادية أو غير اعتيادية، وبشرط موافقة النصف + واحد من الأعضاء الحاضرين للاجتماع."
-        ]
+        ],
+        phone: "773156266", 
+        email: "ycr440@gmail.com", 
+        whatsapp: "967773156266", 
+        facebook: "", 
+        twitter: ""
     };
+    let projects = [];
 
-    // مصفوفة المشاريع
-    let projects = [
-        {
-            id: 1, title: "حفل إشهار المجلس", category: "التمكين", date: "2026-03-12",
-            desc: "حفل إشهار مجلس شباب ريمة رسمياً بمحافظة مأرب تحت شعار (معاً نحو مستقبل يصنعه الشباب).",
-            img: "https://images.unsplash.com/photo-1529070538774-1843cb1665e8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+    // عرض المحتوى الثابت فوراً وبدون أي شاشة تحميل للزوار
+    renderPublicSettings();
+
+    // 3. جلب البيانات والمشاريع من السحابة في الخلفية
+    async function loadDataFromFirebase() {
+        if(!db) return;
+        try {
+            // جلب التعديلات إن وجدت
+            const settingsDoc = await db.collection("settings").doc("general").get();
+            if(settingsDoc.exists) {
+                siteSettings = { ...siteSettings, ...settingsDoc.data() };
+                renderPublicSettings(); 
+            }
+            
+            // جلب المشاريع
+            const snapshot = await db.collection("projects").orderBy("createdAt", "desc").get();
+            projects = [];
+            snapshot.forEach(doc => {
+                let data = doc.data();
+                data.id = doc.id;
+                projects.push(data);
+            });
+            renderPublicProjects();
+        } catch (error) {
+            console.error("Error fetching: ", error);
         }
-    ];
-
-    /* ---------------------------------------------------
-       2. دوال عرض الموقع العام (Public View)
-    --------------------------------------------------- */
+    }
     
-    function renderPublicSettings() {
-        // تحديث الشعار
-        const pubLogoImg = document.getElementById('pub-logo-img');
-        const fallback = document.getElementById('pub-logo-fallback');
-        
-        if(siteSettings.logoDataUrl) {
-            pubLogoImg.src = siteSettings.logoDataUrl;
-            pubLogoImg.classList.remove('hidden');
-            if(fallback) fallback.classList.add('hidden');
-        }
+    // يبدأ الاتصال بالسحابة بهدوء بعد ثانية من فتح الموقع لضمان السرعة
+    window.onload = () => { setTimeout(loadDataFromFirebase, 500); };
 
-        document.getElementById('pub-site-name').innerText = siteSettings.name;
-        document.title = `${siteSettings.name} | الموقع الرسمي`;
+    // 4. بناء واجهة المستخدم للزوار
+    function renderPublicSettings() {
+        if(siteSettings.logoDataUrl) {
+            document.getElementById('pub-logo-img').src = siteSettings.logoDataUrl;
+        }
+        document.getElementById('pub-site-name').innerText = siteSettings.name || "مجلس شباب ريمة";
+        document.title = `${siteSettings.name || "مجلس شباب ريمة"} | الموقع الرسمي`;
         
-        const titleParts = siteSettings.heroTitle.split(' ');
+        const titleParts = (siteSettings.heroTitle || "").split(' ');
         if(titleParts.length > 1) {
             const last = titleParts.pop();
             document.getElementById('pub-hero-title').innerHTML = `${titleParts.join(' ')} <br><span class="text-ycr-red block mt-2" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">${last}</span>`;
@@ -597,381 +669,99 @@
         document.getElementById('pub-vision-text').innerText = siteSettings.vision;
         document.getElementById('pub-mission-text').innerText = siteSettings.mission;
 
-        // بناء قائمة الأهداف
         const goalsContainer = document.getElementById('pub-goals-container');
         goalsContainer.innerHTML = '';
-        siteSettings.goals.forEach((goal, index) => {
+        (siteSettings.goals || []).forEach((goal, index) => {
             const isLastOdd = (index === siteSettings.goals.length - 1 && siteSettings.goals.length % 2 !== 0);
-            const colSpanClass = isLastOdd ? 'md:col-span-2' : '';
-            
             goalsContainer.innerHTML += `
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-start gap-4 card-hover ${colSpanClass}">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-start gap-4 card-hover ${isLastOdd ? 'md:col-span-2' : ''}">
                     <div class="list-number shadow-md">${index + 1}</div>
                     <p class="text-gray-800 font-medium leading-relaxed pt-1 text-lg">${goal}</p>
-                </div>
-            `;
+                </div>`;
         });
 
-        // بناء قائمة شروط العضوية
         const memContainer = document.getElementById('pub-membership-container');
         memContainer.innerHTML = '';
-        siteSettings.membership.forEach((condition, index) => {
+        (siteSettings.membership || []).forEach((condition, index) => {
             memContainer.innerHTML += `
                 <li class="flex items-start gap-4 p-3 hover:bg-gray-50 rounded-lg transition-colors border-b border-gray-50 last:border-0">
                     <i class="fas fa-check text-white bg-ycr-red w-6 h-6 rounded-full flex items-center justify-center text-xs mt-1 shrink-0 shadow-sm"></i>
                     <span class="text-lg font-medium text-gray-800 leading-relaxed"><span class="font-bold text-ycr-red">${index + 1}.</span> ${condition}</span>
-                </li>
-            `;
+                </li>`;
         });
+
+        // تفعيل أزرار الاتصال والتواصل الاجتماعي
+        const phoneEl = document.getElementById('pub-text-phone');
+        const phoneLink = document.getElementById('pub-link-phone');
+        if(siteSettings.phone) {
+            phoneEl.innerText = siteSettings.phone;
+            phoneLink.href = `tel:${siteSettings.phone}`;
+        } else {
+            phoneEl.innerText = "غير متوفر"; phoneLink.href = "#";
+        }
+
+        const emailEl = document.getElementById('pub-text-email');
+        const emailLink = document.getElementById('pub-link-email');
+        const joinBtn = document.getElementById('btn-join-email');
+        if(siteSettings.email) {
+            emailEl.innerText = siteSettings.email;
+            emailLink.href = `mailto:${siteSettings.email}`;
+            if(joinBtn) joinBtn.href = `mailto:${siteSettings.email}?subject=طلب انتساب لمجلس شباب ريمة`;
+        } else {
+            emailEl.innerText = "غير متوفر"; emailLink.href = "#";
+        }
+
+        const fbLink = document.getElementById('pub-link-fb');
+        if(siteSettings.facebook) { fbLink.href = siteSettings.facebook; fbLink.classList.remove('hidden'); fbLink.classList.add('flex'); } 
+        else { fbLink.classList.add('hidden'); fbLink.classList.remove('flex'); }
+
+        const twLink = document.getElementById('pub-link-tw');
+        if(siteSettings.twitter) { twLink.href = siteSettings.twitter; twLink.classList.remove('hidden'); twLink.classList.add('flex'); } 
+        else { twLink.classList.add('hidden'); twLink.classList.remove('flex'); }
+
+        const waLink = document.getElementById('pub-link-wa');
+        if(siteSettings.whatsapp) { 
+            let waNum = siteSettings.whatsapp.replace(/[^0-9]/g, '');
+            waLink.href = `https://wa.me/${waNum}`; 
+            waLink.classList.remove('hidden'); waLink.classList.add('flex'); 
+        } else { waLink.classList.add('hidden'); waLink.classList.remove('flex'); }
     }
 
     function renderPublicProjects(filterCategory = 'all') {
         const container = document.getElementById('public-projects-container');
         const noMsg = document.getElementById('no-projects-msg');
         container.innerHTML = '';
-        
-        let filtered = projects;
-        if(filterCategory !== 'all') {
-            filtered = projects.filter(p => p.category === filterCategory);
-        }
+        let filtered = filterCategory !== 'all' ? projects.filter(p => p.category === filterCategory) : projects;
 
         if(filtered.length === 0) {
             noMsg.classList.remove('hidden');
         } else {
             noMsg.classList.add('hidden');
-            
-            const sorted = [...filtered].reverse();
-            
-            sorted.forEach(proj => {
-                const card = document.createElement('div');
-                card.className = "bg-gray-800 rounded-2xl overflow-hidden shadow-lg border border-gray-700 card-hover flex flex-col h-full group text-white";
-                
+            filtered.forEach(proj => {
                 let badgeColor = 'bg-ycr-black text-white';
                 if(proj.category === 'التعليم') badgeColor = 'bg-blue-600 text-white';
                 if(proj.category === 'الصحة') badgeColor = 'bg-green-600 text-white';
                 if(proj.category === 'الإغاثة') badgeColor = 'bg-ycr-red text-white';
                 if(proj.category === 'التمكين') badgeColor = 'bg-purple-600 text-white';
 
-                card.innerHTML = `
-                    <div class="h-56 relative overflow-hidden bg-gray-900 border-b-4 border-ycr-red">
-                        <img src="${proj.img || 'https://via.placeholder.com/600x400?text=بدون+صورة'}" alt="${proj.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-80 group-hover:opacity-100">
-                        <div class="absolute top-4 right-4 ${badgeColor} text-xs font-bold px-3 py-1 rounded-full shadow-md border border-white/20">
-                            ${proj.category}
+                container.innerHTML += `
+                    <div class="bg-gray-800 rounded-2xl overflow-hidden shadow-lg border border-gray-700 card-hover flex flex-col h-full group text-white">
+                        <div class="h-56 relative overflow-hidden bg-gray-900 border-b-4 border-ycr-red">
+                            <img src="${proj.img || 'https://via.placeholder.com/600x400?text=بدون+صورة'}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-80 group-hover:opacity-100">
+                            <div class="absolute top-4 right-4 ${badgeColor} text-xs font-bold px-3 py-1 rounded-full shadow-md border border-white/20">${proj.category}</div>
                         </div>
-                    </div>
-                    <div class="p-6 flex-1 flex flex-col">
-                        <div class="text-gray-400 text-xs font-bold mb-2"><i class="far fa-calendar-alt ml-1 text-ycr-red"></i> ${proj.date || 'غير محدد'}</div>
-                        <h3 class="text-xl font-bold font-heading mb-3">${proj.title}</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-4 flex-1">${proj.desc}</p>
-                    </div>
-                `;
-                container.appendChild(card);
+                        <div class="p-6 flex-1 flex flex-col">
+                            <div class="text-gray-400 text-xs font-bold mb-2"><i class="far fa-calendar-alt ml-1 text-ycr-red"></i> ${proj.date || 'غير محدد'}</div>
+                            <h3 class="text-xl font-bold font-heading mb-3">${proj.title}</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4 flex-1">${proj.desc}</p>
+                        </div>
+                    </div>`;
             });
         }
     }
 
-    // أزرار الفلترة للمشاريع
     document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             document.querySelectorAll('.filter-btn').forEach(b => {
-                b.classList.remove('bg-ycr-red', 'text-white', 'border-transparent');
-                b.classList.add('bg-transparent', 'text-gray-300', 'border-gray-600');
-            });
-            e.target.classList.remove('bg-transparent', 'text-gray-300', 'border-gray-600');
-            e.target.classList.add('bg-ycr-red', 'text-white', 'border-transparent');
-            
-            renderPublicProjects(e.target.getAttribute('data-filter'));
-        });
-    });
-
-
-    /* ---------------------------------------------------
-       3. دوال عرض لوحة التحكم (Admin View)
-    --------------------------------------------------- */
-
-    // قراءة صورة الشعار وتحويلها لـ Base64
-    document.getElementById('inp-site-logo').addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if(file) {
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                siteSettings.logoDataUrl = event.target.result;
-                document.getElementById('admin-logo-preview').src = siteSettings.logoDataUrl;
-                document.getElementById('admin-logo-preview').classList.remove('hidden');
-                document.getElementById('admin-logo-placeholder').classList.add('hidden');
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-
-    function removeSiteLogo() {
-        siteSettings.logoDataUrl = "";
-        document.getElementById('inp-site-logo').value = "";
-        document.getElementById('admin-logo-preview').src = "";
-        document.getElementById('admin-logo-preview').classList.add('hidden');
-        document.getElementById('admin-logo-placeholder').classList.remove('hidden');
-    }
-
-    function loadAdminSettings() {
-        if(siteSettings.logoDataUrl) {
-            document.getElementById('admin-logo-preview').src = siteSettings.logoDataUrl;
-            document.getElementById('admin-logo-preview').classList.remove('hidden');
-            document.getElementById('admin-logo-placeholder').classList.add('hidden');
-        }
-
-        document.getElementById('inp-site-name').value = siteSettings.name;
-        document.getElementById('inp-hero-title').value = siteSettings.heroTitle;
-        document.getElementById('inp-hero-desc').value = siteSettings.heroDesc;
-        document.getElementById('inp-about').value = siteSettings.about;
-        document.getElementById('inp-vision').value = siteSettings.vision;
-        document.getElementById('inp-mission').value = siteSettings.mission;
-        
-        // تحويل المصفوفات إلى نصوص مقسمة بأسطر
-        document.getElementById('inp-goals').value = siteSettings.goals.join('\n');
-        document.getElementById('inp-membership').value = siteSettings.membership.join('\n');
-    }
-
-    function saveSettings() {
-        siteSettings.name = document.getElementById('inp-site-name').value;
-        siteSettings.heroTitle = document.getElementById('inp-hero-title').value;
-        siteSettings.heroDesc = document.getElementById('inp-hero-desc').value;
-        siteSettings.about = document.getElementById('inp-about').value;
-        siteSettings.vision = document.getElementById('inp-vision').value;
-        siteSettings.mission = document.getElementById('inp-mission').value;
-        
-        // تحويل النص إلى مصفوفة وإزالة الأسطر الفارغة
-        siteSettings.goals = document.getElementById('inp-goals').value.split('\n').filter(item => item.trim() !== '');
-        siteSettings.membership = document.getElementById('inp-membership').value.split('\n').filter(item => item.trim() !== '');
-        
-        renderPublicSettings();
-        showActionToast('تم حفظ الإعدادات وتحديث الموقع فوراً');
-    }
-
-    function renderAdminProjectsTable() {
-        const tbody = document.getElementById('admin-projects-tbody');
-        tbody.innerHTML = '';
-        
-        const reversed = [...projects].reverse();
-        reversed.forEach(proj => {
-            const tr = document.createElement('tr');
-            tr.className = "hover:bg-gray-50 transition-colors border-b border-gray-100";
-            tr.innerHTML = `
-                <td class="p-3">
-                    <img src="${proj.img || 'https://via.placeholder.com/150'}" class="w-16 h-12 object-cover rounded-lg shadow-sm border border-gray-200">
-                </td>
-                <td class="p-3 font-bold text-gray-800">${proj.title}</td>
-                <td class="p-3 text-sm text-gray-600"><span class="bg-gray-100 px-3 py-1 rounded-full font-bold border border-gray-200">${proj.category}</span></td>
-                <td class="p-3 text-sm text-gray-500" dir="ltr">${proj.date}</td>
-                <td class="p-3 text-center">
-                    <div class="flex items-center justify-center gap-2">
-                        <button onclick="editProject(${proj.id})" class="text-blue-600 bg-blue-50 hover:bg-blue-100 w-8 h-8 rounded-lg transition-colors"><i class="fas fa-edit"></i></button>
-                        <button onclick="deleteProject(${proj.id})" class="text-red-600 bg-red-50 hover:bg-red-100 w-8 h-8 rounded-lg transition-colors"><i class="fas fa-trash"></i></button>
-                    </div>
-                </td>
-            `;
-            tbody.appendChild(tr);
-        });
-    }
-
-    /* ---------------------------------------------------
-       4. عمليات المشاريع (إضافة / تعديل / حذف)
-    --------------------------------------------------- */
-    
-    document.getElementById('proj-img-file').addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if(file) {
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                const base64 = event.target.result;
-                document.getElementById('proj-img-base64').value = base64;
-                document.getElementById('proj-img-preview').src = base64;
-                document.getElementById('img-preview-container').classList.remove('hidden');
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-
-    function removeProjImg() {
-        document.getElementById('proj-img-file').value = '';
-        document.getElementById('proj-img-base64').value = '';
-        document.getElementById('proj-img-preview').src = '';
-        document.getElementById('img-preview-container').classList.add('hidden');
-    }
-
-    function openProjectModal(isEdit = false) {
-        document.getElementById('project-modal').classList.remove('hidden');
-        document.getElementById('project-modal').classList.add('flex');
-        
-        if(!isEdit) {
-            document.getElementById('modal-title').innerText = "إضافة نشاط أو مشروع جديد";
-            document.getElementById('proj-id').value = '';
-            document.getElementById('proj-title').value = '';
-            document.getElementById('proj-desc').value = '';
-            document.getElementById('proj-date').value = new Date().toISOString().split('T')[0];
-            removeProjImg();
-        }
-    }
-
-    function closeProjectModal() {
-        document.getElementById('project-modal').classList.add('hidden');
-        document.getElementById('project-modal').classList.remove('flex');
-    }
-
-    function saveProject() {
-        const idVal = document.getElementById('proj-id').value;
-        const title = document.getElementById('proj-title').value;
-        const cat = document.getElementById('proj-category').value;
-        const date = document.getElementById('proj-date').value;
-        const desc = document.getElementById('proj-desc').value;
-        const img = document.getElementById('proj-img-base64').value; 
-        
-        if(!title) { alert("يرجى كتابة عنوان المشروع"); return; }
-
-        if(idVal) {
-            const idx = projects.findIndex(p => p.id == idVal);
-            if(idx > -1) {
-                projects[idx].title = title;
-                projects[idx].category = cat;
-                projects[idx].date = date;
-                projects[idx].desc = desc;
-                if(img) projects[idx].img = img; 
-            }
-            showActionToast('تم تعديل المشروع بنجاح');
-        } else {
-            const newId = projects.length > 0 ? Math.max(...projects.map(p => p.id)) + 1 : 1;
-            projects.push({
-                id: newId, title: title, category: cat, date: date, desc: desc,
-                img: img || '' 
-            });
-            showActionToast('تم نشر المشروع الجديد بنجاح');
-        }
-
-        closeProjectModal();
-        renderAdminProjectsTable(); 
-        
-        const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
-        renderPublicProjects(activeFilter); 
-    }
-
-    function editProject(id) {
-        const p = projects.find(x => x.id === id);
-        if(p) {
-            document.getElementById('modal-title').innerText = "تعديل بيانات المشروع";
-            document.getElementById('proj-id').value = p.id;
-            document.getElementById('proj-title').value = p.title;
-            document.getElementById('proj-category').value = p.category;
-            document.getElementById('proj-date').value = p.date;
-            document.getElementById('proj-desc').value = p.desc;
-            
-            document.getElementById('proj-img-file').value = '';
-            if(p.img) {
-                document.getElementById('proj-img-base64').value = p.img;
-                document.getElementById('proj-img-preview').src = p.img;
-                document.getElementById('img-preview-container').classList.remove('hidden');
-            } else {
-                removeProjImg();
-            }
-            openProjectModal(true);
-        }
-    }
-
-    function deleteProject(id) {
-        if(confirm('هل أنت متأكد من حذف هذا المشروع نهائياً؟ ستختفي بياناته من الموقع.')) {
-            projects = projects.filter(x => x.id !== id);
-            renderAdminProjectsTable();
-            
-            const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
-            renderPublicProjects(activeFilter);
-            showActionToast('تم حذف المشروع نهائياً');
-        }
-    }
-
-    /* ---------------------------------------------------
-       5. تبويبات الإدارة وتنبيهات النجاح (Toast)
-    --------------------------------------------------- */
-
-    document.querySelectorAll('.admin-sidebar-item').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            document.querySelectorAll('.admin-sidebar-item').forEach(b => b.classList.remove('active', 'bg-red-100', 'text-ycr-red'));
-            e.currentTarget.classList.add('active', 'bg-red-100', 'text-ycr-red');
-            
-            const target = e.currentTarget.getAttribute('data-target');
-            document.querySelectorAll('.admin-section').forEach(sec => sec.classList.add('hidden'));
-            document.getElementById(target).classList.remove('hidden');
-        });
-    });
-
-    function showActionToast(msg) {
-        const toast = document.getElementById('action-toast');
-        document.getElementById('toast-text').innerText = msg;
-        toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-10');
-        setTimeout(() => {
-            toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-10');
-        }, 3500);
-    }
-
-    /* ---------------------------------------------------
-       6. نظام الدخول والانتقال لقائمة الجوال
-    --------------------------------------------------- */
-
-    const loginModal = document.getElementById('login-modal');
-    const pubView = document.getElementById('public-view');
-    const adminView = document.getElementById('admin-view');
-
-    document.getElementById('open-admin-login').addEventListener('click', () => {
-        loginModal.classList.remove('hidden');
-        loginModal.classList.add('flex');
-        document.getElementById('admin-password').value = '';
-        document.getElementById('login-error').classList.add('hidden');
-    });
-
-    document.getElementById('login-cancel').addEventListener('click', () => {
-        loginModal.classList.add('hidden');
-        loginModal.classList.remove('flex');
-    });
-
-    document.getElementById('login-submit').addEventListener('click', () => {
-        const pass = document.getElementById('admin-password').value;
-        if(pass === 'admin') { 
-            loginModal.classList.add('hidden');
-            loginModal.classList.remove('flex');
-            pubView.classList.add('hidden');
-            adminView.classList.remove('hidden');
-            adminView.classList.add('flex');
-            
-            loadAdminSettings();
-            renderAdminProjectsTable();
-            window.scrollTo(0,0);
-        } else {
-            document.getElementById('login-error').classList.remove('hidden');
-        }
-    });
-
-    document.getElementById('logout-btn').addEventListener('click', () => {
-        adminView.classList.add('hidden');
-        adminView.classList.remove('flex');
-        pubView.classList.remove('hidden');
-        window.scrollTo(0,0);
-    });
-
-    // قائمة الجوال العامة
-    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
-        document.getElementById('mobile-menu').classList.toggle('hidden');
-    });
-    document.querySelectorAll('#mobile-menu a').forEach(link => {
-        link.addEventListener('click', () => {
-            document.getElementById('mobile-menu').classList.add('hidden');
-        });
-    });
-
-    /* ---------------------------------------------------
-       7. التهيئة الأولى عند فتح الصفحة
-    --------------------------------------------------- */
-    renderPublicSettings();
-    renderPublicProjects();
-
-</script>
-
-
-</body>
-</html>
+                b.classList.remove('bg-
+ا
