@@ -668,7 +668,7 @@
         }
 
         document.getElementById('pub-site-name').innerText = siteSettings.name || "مجلس شباب ريمة";
-        document.title = `${siteSettings.name || "مجلس شباب ريمة"} | الموقع الرسمي`;
+        document.title = `${siteSettings.name || "مجلس شباب ريمة"}`;
         
         const titleParts = (siteSettings.heroTitle || "").split(' ');
         if(titleParts.length > 1) {
@@ -1092,7 +1092,7 @@
 
     document.getElementById('login-submit').addEventListener('click', () => {
         const pass = document.getElementById('admin-password').value;
-        if(pass === 'admin') { 
+        if(pass === 'YCR2026156') { 
             loginModal.classList.add('hidden');
             loginModal.classList.remove('flex');
             pubView.classList.add('hidden');
