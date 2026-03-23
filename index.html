@@ -15,7 +15,7 @@
 
 <!-- مكتبة الأيقونات -->
 
-<link rel="stylesheet" href="[suspicious link removed]">
+<link rel="stylesheet" href="[تم إزالة الرابط المشبوه]">
 
 <!-- Tailwind CSS -->
 
@@ -173,7 +173,7 @@ transform: translateY(0);
 <!-- القسم الرئيسي Hero -->
 <section id="home" class="hero-bg relative min-h-screen flex items-center justify-center pt-24 pb-12">
     <div class="max-w-5xl mx-auto px-4 text-center relative z-10 mt-10">
-        <div class="inline-block mb-6 md:mb-8">
+        <div class="inline-block mb-6 md:mb-8 animate-bounce">
             <span class="bg-ycr-red text-white px-5 py-2 rounded-full text-sm font-bold tracking-wider shadow-[0_0_15px_rgba(220,38,38,0.5)] border border-red-400">
                 <i class="fas fa-star ml-2 text-yellow-300"></i> تحت شعار
             </span>
@@ -187,10 +187,10 @@ transform: translateY(0);
             كيان شبابي فاعل، يجمع الطاقات ويوحد الكلمة، لنكون قادة التغيير الإيجابي في محافظة ريمة واليمن عموماً.
         </p>
         <div class="flex flex-col sm:flex-row justify-center gap-4">
-            <a href="#membership" class="bg-white text-ycr-black hover:bg-gray-100 px-6 py-3 md:px-8 md:py-4 rounded-xl font-bold text-base md:text-lg transition-all shadow-xl flex items-center justify-center gap-3">
+            <a href="#membership" class="bg-white text-ycr-black hover:bg-gray-100 px-6 py-3 md:px-8 md:py-4 rounded-xl font-bold text-base md:text-lg transition-all shadow-xl flex items-center justify-center gap-3 transform hover:-translate-y-1">
                 <i class="fas fa-user-plus text-ycr-red"></i> انضم إلى المجلس
             </a>
-            <a href="#projects" class="border-2 border-ycr-red bg-ycr-black bg-opacity-40 hover:bg-ycr-red text-white px-6 py-3 md:px-8 md:py-4 rounded-xl font-bold text-base md:text-lg transition-all flex items-center justify-center gap-3 backdrop-blur-sm">
+            <a href="#projects" class="border-2 border-ycr-red bg-ycr-black bg-opacity-40 hover:bg-ycr-red text-white px-6 py-3 md:px-8 md:py-4 rounded-xl font-bold text-base md:text-lg transition-all flex items-center justify-center gap-3 backdrop-blur-sm transform hover:-translate-y-1">
                 <i class="fas fa-project-diagram"></i> استكشف برامجنا
             </a>
         </div>
@@ -205,17 +205,17 @@ transform: translateY(0);
             <h2 class="text-3xl md:text-5xl font-black text-ycr-black font-heading section-title relative inline-block mb-4">أدبيات المجلس</h2>
         </div>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div class="bg-gray-50 rounded-2xl p-8 border border-gray-100 card-hover relative overflow-hidden">
+            <div class="bg-gray-50 rounded-2xl p-8 border border-gray-100 card-hover relative overflow-hidden group">
                 <div class="absolute top-0 right-0 w-1.5 h-full bg-ycr-red"></div>
                 <h3 class="text-2xl font-bold font-heading text-ycr-black mb-4"><i class="fas fa-book-open text-ycr-red ml-2"></i> التعريف بالمجلس</h3>
                 <p id="pub-about-text" class="text-gray-700 leading-loose font-medium">هيئة شبابية، تأسس بهدف تمكين الشباب وتعزيز دورهم في تنمية المجتمع وخدمته، وتوفير منصة للتعبير عن آرائهم وأفكارهم وتطلعاتهم.</p>
             </div>
-            <div class="bg-gray-50 rounded-2xl p-8 border border-gray-100 card-hover relative overflow-hidden">
+            <div class="bg-gray-50 rounded-2xl p-8 border border-gray-100 card-hover relative overflow-hidden group">
                 <div class="absolute top-0 right-0 w-1.5 h-full bg-ycr-black"></div>
                 <h3 class="text-2xl font-bold font-heading text-ycr-black mb-4"><i class="fas fa-eye text-ycr-black ml-2"></i> رؤيتنا</h3>
                 <p id="pub-vision-text" class="text-gray-700 leading-loose font-medium">شباب ريادي تنموي فاعل ومؤثر في تنمية المجتمع.</p>
             </div>
-            <div class="bg-gray-50 rounded-2xl p-8 border border-gray-100 card-hover relative overflow-hidden lg:col-span-2">
+            <div class="bg-gray-50 rounded-2xl p-8 border border-gray-100 card-hover relative overflow-hidden lg:col-span-2 group">
                 <div class="absolute top-0 right-0 w-1.5 h-full bg-ycr-red"></div>
                 <h3 class="text-2xl font-bold font-heading text-ycr-black mb-4"><i class="fas fa-paper-plane text-ycr-red ml-2"></i> رسالتنا</h3>
                 <p id="pub-mission-text" class="text-gray-700 text-xl leading-loose font-medium">دعم وتمكين شباب ريمة ليكونوا قادة التغيير الإيجابي في مجتمعاتهم، من خلال توفير الفرص والموارد اللازمة لتحقيق أحلامهم وطموحاتهم.</p>
@@ -275,7 +275,6 @@ transform: translateY(0);
             <span class="text-ycr-red font-bold text-sm tracking-widest mb-2 block uppercase">أعمالنا ومبادراتنا</span>
             <h2 class="text-3xl md:text-4xl font-black text-white font-heading section-title relative inline-block mb-8">المشاريع والأنشطة</h2>
             
-            <!-- أزرار تصفية الأقسام -->
             <div class="flex flex-wrap justify-center gap-2 md:gap-4 mt-8" id="portfolio-filters">
                 <button class="filter-btn active bg-ycr-red text-white px-5 py-2 rounded-full font-bold text-sm transition-colors border border-transparent" data-filter="all">الكل</button>
                 <button class="filter-btn bg-transparent text-gray-300 hover:text-white border border-gray-600 hover:border-gray-400 px-5 py-2 rounded-full font-bold text-sm transition-colors" data-filter="التعليم">التعليم</button>
@@ -285,10 +284,7 @@ transform: translateY(0);
             </div>
         </div>
 
-        <!-- حاوية البطاقات -->
-        <div id="public-projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- سيتم إضافة المشاريع هنا بواسطة الجافاسكربت -->
-        </div>
+        <div id="public-projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
         
         <div id="no-projects-msg" class="hidden text-center py-10">
             <div class="text-gray-600 text-6xl mb-4"><i class="fas fa-folder-open"></i></div>
@@ -297,30 +293,30 @@ transform: translateY(0);
     </div>
 </section>
 
-<!-- الفوتر مع زر الإدارة المخفي -->
-<footer class="bg-ycr-black text-gray-300 pt-16 pb-8 border-t border-gray-800">
+<!-- الفوتر مع بيانات التواصل الديناميكية -->
+<footer id="contact" class="bg-ycr-black text-gray-300 pt-16 pb-8 border-t border-gray-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10 text-center md:text-right">
             <div>
                 <h4 class="text-white text-2xl font-black font-heading mb-4">مجلس شباب ريمة</h4>
                 <p class="text-gray-400 font-medium max-w-md mx-auto md:mx-0">هيئة شبابية مستقلة تعمل على توحيد جهود الشباب، وتنمية قدراتهم، وإشراكهم بفاعلية في بناء وتنمية المجتمع وحماية الثوابت الوطنية.</p>
                 
-                <!-- أيقونات التواصل الاجتماعي -->
+                <!-- أيقونات التواصل الاجتماعي المبرمجة -->
                 <div class="flex space-x-4 space-x-reverse mt-6 justify-center md:justify-start">
                     <a id="pub-link-fb" href="#" target="_blank" class="hidden w-12 h-12 rounded-full bg-gray-800 items-center justify-center hover:bg-ycr-red hover:text-white transition-colors text-lg"><i class="fab fa-facebook-f"></i></a>
                     <a id="pub-link-tw" href="#" target="_blank" class="hidden w-12 h-12 rounded-full bg-gray-800 items-center justify-center hover:bg-ycr-red hover:text-white transition-colors text-lg"><i class="fab fa-twitter"></i></a>
-                    <a id="pub-link-wa" href="#" target="_blank" class="hidden w-12 h-12 rounded-full bg-gray-800 items-center justify-center hover:bg-ycr-red hover:text-white transition-colors text-lg"><i class="fab fa-whatsapp"></i></a>
+                    <a id="pub-link-wa" href="https://wa.me/967773156266" target="_blank" class="flex w-12 h-12 rounded-full bg-gray-800 items-center justify-center hover:bg-ycr-red hover:text-white transition-colors text-lg"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
             
             <div class="flex flex-col justify-center items-center md:items-end">
                 <h4 class="text-white text-xl font-bold mb-4 font-heading">تواصل معنا</h4>
                 <!-- الاتصال السريع -->
-                <a id="pub-link-phone" href="#" dir="ltr" class="font-bold text-gray-300 hover:text-ycr-red text-xl mb-2 transition-colors flex items-center gap-3">
+                <a id="pub-link-phone" href="tel:773156266" dir="ltr" class="font-bold text-gray-300 hover:text-ycr-red text-xl mb-2 transition-colors flex items-center gap-3">
                     <span id="pub-text-phone">773156266</span> <i class="fas fa-phone bg-gray-800 p-3 rounded-full"></i>
                 </a>
                 <!-- المراسلة عبر الإيميل -->
-                <a id="pub-link-email" href="#" dir="ltr" class="font-bold text-ycr-red hover:text-white text-lg transition-colors flex items-center gap-3">
+                <a id="pub-link-email" href="mailto:ycr440@gmail.com" dir="ltr" class="font-bold text-ycr-red hover:text-white text-lg transition-colors flex items-center gap-3">
                     <span id="pub-text-email">ycr440@gmail.com</span> <i class="fas fa-envelope bg-gray-800 p-3 rounded-full"></i>
                 </a>
             </div>
@@ -329,7 +325,6 @@ transform: translateY(0);
         <div class="border-t border-gray-800 pt-6 flex flex-col md:flex-row justify-between items-center text-sm font-medium">
             <p>&copy; 2026 جميع الحقوق محفوظة لمجلس شباب ريمة (YCR).</p>
             <p>&copy; 2026 م.ضياء الحرازي </p>
-            <!-- زر الدخول للوحة التحكم -->
             <button id="open-admin-login" class="mt-4 md:mt-0 text-gray-500 hover:text-white transition-colors flex items-center gap-2">
                 <i class="fas fa-lock text-xs"></i> الدخول للوحة التحكم والإدارة
             </button>
@@ -354,7 +349,7 @@ transform: translateY(0);
 <p class="text-gray-500 text-sm mt-1">أدخل كلمة المرور للوصول</p>
 </div>
 <div class="space-y-4">
-<input type="password" id="admin-password" placeholder="••••••••" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-ycr-red focus:border-ycr-red outline-none text-left" dir="ltr">
+<input type="password" id="admin-password" placeholder="كلمة المرور" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-ycr-red focus:border-ycr-red outline-none text-left" dir="ltr">
 <p id="login-error" class="text-red-500 text-xs hidden font-bold">كلمة المرور غير صحيحة!</p>
 <button id="login-submit" class="w-full bg-ycr-black hover:bg-gray-800 text-white font-bold py-3 rounded-xl transition-colors">تسجيل الدخول</button>
 <button id="login-cancel" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-2 rounded-xl transition-colors">إلغاء والعودة للموقع</button>
@@ -421,7 +416,7 @@ transform: translateY(0);
                     </div>
                 </div>
 
-                <!-- إعدادات التواصل الاجتماعي الجديدة -->
+                <!-- إعدادات التواصل الاجتماعي -->
                 <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
                     <h3 class="text-lg font-bold text-ycr-black font-heading mb-4"><i class="fas fa-link text-gray-400 ml-2"></i> بيانات الاتصال ومواقع التواصل</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -489,7 +484,7 @@ transform: translateY(0);
                     </div>
                 </div>
 
-                <button type="button" onclick="saveSettings()" class="w-full bg-ycr-black hover:bg-gray-800 text-white font-bold py-4 rounded-xl transition-colors shadow-lg text-lg">
+                <button type="button" onclick="saveSettings()" id="btn-save-settings" class="w-full bg-ycr-black hover:bg-gray-800 text-white font-bold py-4 rounded-xl transition-colors shadow-lg text-lg flex items-center justify-center">
                     <i class="fas fa-save ml-2"></i> حفظ التعديلات وتحديث الموقع
                 </button>
             </form>
@@ -908,6 +903,10 @@ function loadAdminSettings() {
 }
 
 async function saveSettings() {
+    const btn = document.getElementById(&#39;btn-save-settings&#39;);
+    btn.innerHTML = &#39;&lt;i class=&quot;fas fa-spinner fa-spin ml-2&quot;&gt;&lt;/i&gt; جاري الحفظ...&#39;;
+    btn.disabled = true;
+
     siteSettings.name = document.getElementById(&#39;inp-site-name&#39;).value;
     siteSettings.heroTitle = document.getElementById(&#39;inp-hero-title&#39;).value;
     siteSettings.heroDesc = document.getElementById(&#39;inp-hero-desc&#39;).value;
@@ -929,6 +928,9 @@ async function saveSettings() {
     } catch(e) {
         alert(&quot;حدث خطأ أثناء الحفظ. تأكد من الاتصال بالإنترنت و Security Rules.&quot;);
     }
+    
+    btn.innerHTML = &#39;&lt;i class=&quot;fas fa-save ml-2&quot;&gt;&lt;/i&gt; حفظ التعديلات وتحديث الموقع&#39;;
+    btn.disabled = false;
 }
 
 function renderAdminProjectsTable() {
