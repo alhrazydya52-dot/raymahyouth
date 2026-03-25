@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الهيكل التنظيمي - مجلس شباب ريمة</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&display=swap');
+        
+        :root {
+            --primary-color: #4a1515; 
+            --gold-color: #bfa145; 
+            --bg-color: #fcfcfc;
+            --card-width: 105px;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-color);
+            height: 100%;
+        }
+
+        .content-wrapper {
+            padding: 40px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 38px;
+            font-weight: 800;
+            color: #000;
+            margin-bottom: 60px;
+            padding: 0 15px;
+        }
+
+        /* --- التمرير الأفقي للجوال --- */
+        .chart-container {
+            width: 100%;
+            overflow-x: auto; 
+            -webkit-overflow-scrolling: touch; 
+            display: block; 
+        }
+
+        .org-chart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            width: max-content; 
+            margin: 0 auto;
+            padding: 0 40px 40px 40px; 
+        }
+
+        /* ------------------ تصميم الصفوف ------------------ */
+        .level { display: flex; position: relative; }
+        .top-level { gap: 20px; margin-bottom: 60px; flex-direction: row-reverse; align-items: flex-start; }
+        .bottom-level { gap: 12px; position: relative; padding-top: 30px; }
+
+        /* ------------------ خطوط التوصيل ------------------ */
+        .bottom-level::before { content: ''; position: absolute; top: 0; left: 4%; right: 4%; border-top: 2px solid var(--primary-color); }
+        .president-wrapper { position: relative; }
+        .president-wrapper::after { content: ''; position: absolute; bottom: -62px; left: 50%; border-left: 2px solid var(--primary-color); height: 62px; z-index: -1; }
+        .vp-wrapper { position: relative; }
+        .vp-wrapper::before { content: ''; position: absolute; top: 50px; left: -35px; width: 35px; border-top: 2px dashed var(--primary-color); }
+        .sec-wrapper, .asst-sec-wrapper { position: relative; }
+        .sec-wrapper::before, .asst-sec-wrapper::before { content: ''; position: absolute; top: 50px; left: -35px; width: 35px; border-top: 2px solid var(--primary-color); }
+        .bottom-level .card-wrapper { position: relative; }
+        .bottom-level .card-wrapper::before { content: ''; position: absolute; top: -30px; left: 50%; border-left: 2px solid var(--primary-color); height: 30px; }
+
+        /* ------------------ تصميم البطاقات ------------------ */
+        .card {
+            background-color: #fff;
+            border: 3px solid var(--primary-color);
+            border-radius: 4px;
+            width: var(--card-width);
+            text-align: center;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            padding: 3px;
+        }
+
+        .president-card { border: 4px solid var(--gold-color); outline: 2px solid #000; outline-offset: -1px; width: 120px; }
+
+        .image-placeholder {
+            background: linear-gradient(to bottom, #d6d6d6, #eeeeee);
+            height: 120px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            border: 1px solid #aaa;
+            border-radius: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .president-card .image-placeholder { height: 135px; }
+
+        .image-placeholder::before { content: ''; position: absolute; bottom: -10px; width: 70px; height: 80px; background-color: #fff; border-radius: 40px 40px 0 0; box-shadow: inset 0 0 10px rgba(0,0,0,0.1); }
+        .image-placeholder::after { content: ''; position: absolute; bottom: 60px; width: 45px; height: 55px; background-color: #fff; border-radius: 50%; box-shadow: inset 0 0 10px rgba(0,0,0,0.1); }
+
+        .image-placeholder img { width: 100%; height: 100%; object-fit: cover; position: relative; z-index: 5; }
+        .image-placeholder img[src=""] { display: none; }
+
+        .info { padding: 8px 2px 4px 2px; background-color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 50px; }
+        .name { font-weight: 800; font-size: 11px; color: #000; margin-bottom: 2px; line-height: 1.2; }
+        .role { font-weight: 800; font-size: 10px; color: var(--primary-color); line-height: 1.2; }
+        .president-card .name { font-size: 13px; }
+        .president-card .role { font-size: 12px; color: #000; }
+
+        /* --- تصميم الشعار أسفل المخطط --- */
+        .footer-logo {
+            margin-top: 80px;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+        
+        .footer-logo img {
+            width: 250px; 
+            max-width: 100%;
+            height: auto;
+        }
+
+        @media (max-width: 768px) {
+            .title { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="content-wrapper">
+        <h1 class="title">الهيكل التنظيمي والإداري لمجلس شباب ريمة</h1>
+
+        <div class="chart-container" dir="rtl">
+            <div class="org-chart">
+                
+                <div class="level top-level">
+                    <div class="card-wrapper president-wrapper">
+                        <div class="card president-card">
+                            <div class="image-placeholder"><img src="https://i.postimg.cc/wxfQ7XXj/FB-IMG-1774435402970.jpg" alt="محمد صالح الضبيبي"></div>
+                            <div class="info">
+                                <div class="name">محمد صالح الضبيبي</div>
+                                <div class="role">رئيس المجلس</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-wrapper vp-wrapper">
+                        <div class="card">
+                            <div class="image-placeholder"><img src="https://i.postimg.cc/TP5rS1hQ/FB-IMG-1774441823961.jpg" alt="عبدالرزاق الجرادي"></div>
+                            <div class="info">
+                                <div class="name">عبدالرزاق الجرادي</div>
+                                <div class="role">نائب رئيس المجلس</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-wrapper sec-wrapper">
+                        <div class="card">
+                            <div class="image-placeholder"><img src="https://i.postimg.cc/VN2JbFfk/hany-alsʿydy.png" alt="هاني السعيدي"></div>
+                            <div class="info">
+                                <div class="name">هاني السعيدي</div>
+                                <div class="role">أمين عام</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-wrapper asst-sec-wrapper">
+                        <div class="card">
+                            <div class="image-placeholder"><img src="https://i.postimg.cc/qRZjKSt3/ahmd-alhwry.jpg" alt="احمد الحوري"></div>
+                            <div class="info">
+                                <div class="name">احمد الحوري</div>
+                                <div class="role">أمين عام مساعد</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="level bottom-level">
+                    <div class="card-wrapper">
+                        <div class="card">
+                            <div class="image-placeholder"><img src="https://i.postimg.cc/j246X12M/FB-IMG-1774441846192.jpg" alt="علي الشبلي"></div>
+                            <div class="info">
+                                <div class="name">علي الشبلي</div>
+                                <div class="role">الدائرة المالية</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-wrapper">
+                        <div class="card">
+                            <div class="image-placeholder"><img src="" alt="أسامة السعيدي"></div>
+                            <div class="info">
+                                <div class="name">أسامة السعيدي</div>
+                                <div class="role">الدائرة الاجتماعية</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-wrapper">
+                        <div class="card">
+                            <div class="image-placeholder"><img src="https://i.postimg.cc/0Q9LnT2Z/mhran-alshawsh.jpg" alt="مهران الشاوش"></div>
+                            <div class="info">
+                                <div class="name">مهران الشاوش</div>
+                                <div class="role">الدائرة الإعلامية</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-wrapper">
+                        <div class="card">
+                            <div class="image-placeholder"><img src="https://i.postimg.cc/Px6F4N7Q/IMG-20260208-WA0013.jpg" alt="صادق السعيدي"></div>
+                            <div class="info">
+                                <div class="name">صادق السعيدي</div>
+                                <div class="role">دائرة العلاقات العامة</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-wrapper">
+                        <div class="card">
+                            <div class="image-placeholder"><img src="" alt="سيف المقداد"></div>
+                            <div class="info">
+                                <div class="name">سيف المقداد</div>
+                                <div class="role">دائرة الحقوق والحريات</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-wrapper">
+                        <div class="card">
+                            <div class="image-placeholder"><img src="" alt="عيبان الهاملي"></div>
+                            <div class="info">
+                                <div class="name">عيبان الهاملي</div>
+                                <div class="role">الدائرة السياسية</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-wrapper">
+                        <div class="card">
+                            <div class="image-placeholder"><img src="" alt="سفيان الغزي"></div>
+                            <div class="info">
+                                <div class="name">سفيان الغزي</div>
+                                <div class="role">دائرة التقييم والمتابعة</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-wrapper">
+                        <div class="card">
+                            <div class="image-placeholder"><img src="" alt="محمد فرحان"></div>
+                            <div class="info">
+                                <div class="name">محمد فرحان</div>
+                                <div class="role">دائرة الأنشطة والفعاليات</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-wrapper">
+                        <div class="card">
+                            <div class="image-placeholder"><img src="https://i.postimg.cc/3N8YyyvW/fysl-alswad.jpg" alt="فيصل السواد"></div>
+                            <div class="info">
+                                <div class="name">فيصل السواد</div>
+                                <div class="role">دائرة التخطيط والدراسات</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-wrapper">
+                        <div class="card">
+                            <div class="image-placeholder"><img src="https://i.postimg.cc/y6Prn30t/DSC0842-copy.jpg" alt="ضياء الحرازي"></div>
+                            <div class="info">
+                                <div class="name">ضياء الحرازي</div>
+                                <div class="role">إدارة السكرتارية والمحفوظات</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-wrapper">
+                        <div class="card">
+                            <div class="image-placeholder"><img src="https://i.postimg.cc/7YLJdhW0/FB-IMG-1774442080616.jpg" alt="سعدية المحفلي"></div>
+                            <div class="info">
+                                <div class="name">سعدية المحفلي</div>
+                                <div class="role">دائرة المرأة</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-logo">
+                    <img src="https://i.postimg.cc/J0hPDK6K/Iogo-(2).png" alt="شعار مجلس شباب ريمة">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
